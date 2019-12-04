@@ -19,9 +19,7 @@ public class Controller {
 		 
 		 //scanner to take user input
 		 Scanner sc = new Scanner(System.in);
-		 
-//		 while (true){
-			 
+		 	 
 			 //choose a random word from word.txt
 			 hangman.randomWord(lines);
 			 
@@ -40,13 +38,26 @@ public class Controller {
 					 //reads the nextLine in user input and change it to lower case
 					 String str = sc.nextLine().toLowerCase();
 					 
+					 boolean isLetter = false;
+					 
+					 //get the first character of user input
+					 char character = str.charAt(0);
+					 
+					 /**
+					  * check is the character is a letter.
+					  * return true if it's a letter
+					  */
+					 isLetter = character >= 'A' && character <= 'z';
+					 
+					 System.out.println(isLetter);
+					 
 					 //checks if user input is empty
 					 if (str.length() == 0){
 						 System.out.println("Please enter a letter");
 						 
 					//checks if the first character of user input is a letter
-//					TODO: change this part to regex
-					 } else if (Character.isLetter(str.charAt(0))) {
+
+					 } else if (isLetter) {
 						 
 						 //set the first character of user input as letter
 						 char letter = str.charAt(0);
@@ -56,11 +67,10 @@ public class Controller {
 					} else {
 					
 					//prompts user to enter another string
-		            System.out.println("Please enter a letter");
+		            System.out.println("Please enter a letter. You entered something that's not a letter.");
 		          }
 		        }
 		      }
-//		    }
 
 	}
 
