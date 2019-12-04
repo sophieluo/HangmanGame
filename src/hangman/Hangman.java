@@ -3,75 +3,69 @@ package hangman;
 import java.io.*;
 import java.util.Random;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.nio.file.Files;
 
 
 public class Hangman {
 	
-	private static final int TOTAL_TRIALS = 10;
-	private static List<String> wordsList;
+	/**
+	 * Name of file to open and read.
+	 */
+	private String filename;
 	
 	/**
-	 * create a FileReader with the given File object
-	 * need to handle exceptions
+	 * total turns the user has
 	 */
-	public static void loadWords(){
-		//create File object
-		File wordsFile = new File("words_clean.txt");
-//		System.out.println(wordsFile);
-		
-		//define file reader
-		FileReader fileReader = null;
-		
-		//define buffered reader
-		BufferedReader bufferedReader = null;
-		
-		try {
-			fileReader = new FileReader(wordsFile);
-			System.out.println(fileReader);
-			
-			bufferedReader = new BufferedReader(fileReader);
-			
-			System.out.println(bufferedReader);
-					
-//			while ((bufferedReader.readLine()) != null) {
-//				for (int i = 0; i < bufferedReader.length; i++) {
-//					wordsList.push(bufferedReader.nextLine());
-//				}
-//				
-//			}
-		} catch (FileNotFoundException e) {
-			
-			//gets and prints filename
-			System.out.println("Sorry, not found.");
-		} catch (IOException e) {
-			
-			//prints the error message and info about which line
-			e.printStackTrace();
-		} finally {
-			
-			try {
-				fileReader.close();
-				bufferedReader.close();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		
-		//read a whole line
-//		String s = bufferedReader.readLine();
+	private static final int TOTAL_TRIALS = 10;
+	
+	public Hangman(String filename) {
+		this.filename = filename;
 	}
 	
-	public String ToSting() {
-		return "words";
+	/**
+	 * opens and reads the data in fileName,
+	 * stores each line as an element into a list,
+	 * need to handle exceptions
+	 * @return a list of lines.
+	 */
+	public ArrayList<String> loadWords() {
+		
+		ArrayList<String> lines = new ArrayList<String>();
+		
+		BufferedReader file = null;
+		
+		try {
+			file = new BufferedReader(new FileReader(new File(filename)));
+			
+			String line = file.readLine();
+			
+			while(line != null) {
+				if(!line.isEmpty()) {
+					lines.add(line);
+				}
+				line = file.readLine();
+				} 
+			}
+			catch(FileNotFoundException e ) {
+				e.printStackTrace();
+			} catch(IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					file.close();
+				} catch(IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return lines;		
 	}
+
 	
 	public void randomWord(){
 		Random rd = new Random();
-		 
-		
+		 	
 	}
 
 	

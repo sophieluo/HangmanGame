@@ -1,5 +1,7 @@
 package hangman;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -12,10 +14,12 @@ public class Controller {
 
 	public static void main(String[] args) {
 		//initializes new game
-		 Hangman hangman = new Hangman();
+		 Hangman hangman = new Hangman("words_clean.txt");
 		 
-		 hangman.loadWords();
+		 ArrayList<String> lines = hangman.loadWords();	 
 		 
+		 System.out.println(lines);
+		 	 
 		 //scanner to take user input
 		 Scanner s = new Scanner(System.in);
 		 
