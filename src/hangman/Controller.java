@@ -17,10 +17,6 @@ public class Controller {
 		 Hangman hangman = new Hangman("words_clean.txt");
 		 
 		 ArrayList<String> lines = hangman.loadWords();	 
-		 
-		 hangman.randomWord(lines);
-		 
-		 hangman.status();
 		 	 
 		 //scanner to take user input
 		 Scanner s = new Scanner(System.in);

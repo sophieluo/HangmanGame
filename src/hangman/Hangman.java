@@ -24,7 +24,7 @@ public class Hangman {
 	 */
 	private String currentWord;
 	
-	private String display;
+	private ArrayList<Character> display;
 	
 	private ArrayList<Character> guessed;
 	
@@ -79,21 +79,21 @@ public class Hangman {
 		int i = rd.nextInt(lines.size());
 		
 		currentWord = lines.get(i);
-		display = "";
+		display = new ArrayList<Character>();
 		
 		for (int j = 0; j < currentWord.length(); j++) {
-			display = display + '_';
+			display.add('_');
 		}
 		
 		remaining = MAX;
-		guessed = new ArrayList<>();	 	
+		guessed = new ArrayList<Character>();	 	
 	}
 
 	
 	public String status() {
 		if (remaining == 1) {
 			return "LOST";
-		} else if (display.indexOf("_") == -1) {
+		} else if (display.indexOf('_') == -1) {
 			return "WON";
 		}
 		
@@ -112,16 +112,26 @@ public class Hangman {
  	}
 	
 	public void guess(char letter) {
-		
+		if (guessed.contains(letter)) {
+		      return;
+		    }
+		    guessed.add(letter);
+		    if (currentWord.indexOf(letter) != -1){
+		      for (int i = 0; i < display.size(); i++) {
+		        if (letter == currentWord.charAt(i)){
+		          display.set(i,letter);
+		        }
+		      }
+		    }else{
+		      remaining--;
+		    }
 	}
 	
+	
 	public boolean isOver() {
-		return false;
-		
+		return remaining < 1 || display.indexOf("_") == -1;	
 	}
 		
-
-
 
 }
 
