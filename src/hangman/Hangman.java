@@ -3,8 +3,6 @@ package hangman;
 import java.io.*;
 import java.util.Random;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 
 public class Hangman {
@@ -97,7 +95,7 @@ public class Hangman {
 			return "WON";
 		}
 		
-		String status = null;
+		String status = "remaining lives: ";
 		
 		for (int i = 0; i < MAX; i++) {
 		      if (i < remaining){
@@ -106,7 +104,6 @@ public class Hangman {
 		        status = status + " ";
 		      }
 		    }
-		status = status + "|";
 		
 		return display + status;
  	}
@@ -129,7 +126,7 @@ public class Hangman {
 	
 	
 	public boolean isOver() {
-		return remaining < 1 || display.indexOf("_") == -1;	
+		return remaining == 0;
 	}
 		
 

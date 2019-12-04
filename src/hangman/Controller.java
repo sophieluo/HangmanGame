@@ -1,6 +1,5 @@
 package hangman;
 
-import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,12 +15,13 @@ public class Controller {
 		//initializes new game
 		 Hangman hangman = new Hangman("words_clean.txt");
 		 
-		 ArrayList<String> lines = hangman.loadWords();	 
-		 	 
-		 //scanner to take user input
-		 Scanner s = new Scanner(System.in);
+		 ArrayList<String> lines = hangman.loadWords();
 		 
-		 while (true){
+		 //scanner to take user input
+		 Scanner sc = new Scanner(System.in);
+		 
+//		 while (true){
+			 
 			 //choose a random word from word.txt
 			 hangman.randomWord(lines);
 			 
@@ -34,14 +34,18 @@ public class Controller {
 				 } else {
 					 System.out.println(hangman.status());
 					 
+					 //prompts user to enter a letter
+					 System.out.println("Please enter a letter");
+					 
 					 //reads the nextLine in user input and change it to lower case
-					 String str = s.nextLine().toLowerCase();
+					 String str = sc.nextLine().toLowerCase();
 					 
 					 //checks if user input is empty
 					 if (str.length() == 0){
 						 System.out.println("Please enter a letter");
 						 
-					//checks if the first character of user input is a letter 
+					//checks if the first character of user input is a letter
+//					TODO: change this part to regex
 					 } else if (Character.isLetter(str.charAt(0))) {
 						 
 						 //set the first character of user input as letter
@@ -56,7 +60,7 @@ public class Controller {
 		          }
 		        }
 		      }
-		    }
+//		    }
 
 	}
 
