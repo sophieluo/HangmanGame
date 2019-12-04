@@ -1,10 +1,15 @@
 package hangman;
 
 import java.io.*;
-import java.util.*;
+import java.util.Random;
+import java.util.List;
+import java.nio.file.Files;
 
 
 public class Hangman {
+	
+	private static final int TOTAL_TRIALS = 10;
+	private static List<String> wordsList;
 	
 	/**
 	 * create a FileReader with the given File object
@@ -12,35 +17,63 @@ public class Hangman {
 	 */
 	public static void loadWords(){
 		//create File object
-		File words= new File("/words_clean.txt");
+		File wordsFile = new File("words_clean.txt");
+//		System.out.println(wordsFile);
+		
+		//define file reader
+		FileReader fileReader = null;
+		
+		//define buffered reader
+		BufferedReader bufferedReader = null;
 		
 		try {
-			FileReader wordsr = new FileReader(words);
+			fileReader = new FileReader(wordsFile);
+			System.out.println(fileReader);
+			
+			bufferedReader = new BufferedReader(fileReader);
+			
+			System.out.println(bufferedReader);
+					
+//			while ((bufferedReader.readLine()) != null) {
+//				for (int i = 0; i < bufferedReader.length; i++) {
+//					wordsList.push(bufferedReader.nextLine());
+//				}
+//				
+//			}
+		} catch (FileNotFoundException e) {
+			
+			//gets and prints filename
+			System.out.println("Sorry, not found.");
 		} catch (IOException e) {
-			throw new RuntimeException("Error readings words file", e);
-		}
- 	
-		try{
-			//create a BufferedReader
-			BufferedReader wordsrb = new BufferedReader(wordsr);
-		} catch (IOException e) {
-			throw new RuntimeException("Error", e);
+			
+			//prints the error message and info about which line
+			e.printStackTrace();
+		} finally {
+			
+			try {
+				fileReader.close();
+				bufferedReader.close();
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		
 		//read a whole line
-		//need to handle exceptions
-		String s = wordsrb.readLine();
+//		String s = bufferedReader.readLine();
 	}
 	
-
 	public String ToSting() {
-	return "words";
+		return "words";
 	}
 	
-	public void newWord(){
+	public void randomWord(){
+		Random rd = new Random();
+		 
 		
 	}
+
 	
 	public String status() {
 		return "hello world";
@@ -56,11 +89,7 @@ public class Hangman {
 		
 	}
 		
-		
-				
-	//close after use
-	wordsr.close();
-	wordsrb.close();
+
 
 
 }

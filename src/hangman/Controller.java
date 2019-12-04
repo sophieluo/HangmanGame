@@ -14,12 +14,14 @@ public class Controller {
 		//initializes new game
 		 Hangman hangman = new Hangman();
 		 
+		 hangman.loadWords();
+		 
 		 //scanner to take user input
 		 Scanner s = new Scanner(System.in);
 		 
 		 while (true){
 			 //choose a random word from word.txt
-			 hangman.newWord();
+			 hangman.randomWord();
 			 
 			 while(true){
 				 //check if game is over
