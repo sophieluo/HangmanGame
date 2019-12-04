@@ -2,10 +2,9 @@ package hangman;
 
 import java.io.*;
 import java.util.Random;
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.nio.file.Files;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class Hangman {
@@ -18,7 +17,18 @@ public class Hangman {
 	/**
 	 * total turns the user has
 	 */
-	private static final int TOTAL_TRIALS = 10;
+	private static final int MAX = 10;
+	
+	/**
+	 * a random word chosen by computer each time
+	 */
+	private String currentWord;
+	
+	private String display;
+	
+	private ArrayList<Character> guessed;
+	
+	private int remaining;
 	
 	public Hangman(String filename) {
 		this.filename = filename;
@@ -63,16 +73,43 @@ public class Hangman {
 	}
 
 	
-	public void randomWord(){
+	public void randomWord(ArrayList<String> lines){
 		Random rd = new Random();
-		 	
+		
+		int i = rd.nextInt(lines.size());
+		
+		currentWord = lines.get(i);
+		display = "";
+		
+		for (int j = 0; j < currentWord.length(); j++) {
+			display = display + '_';
+		}
+		
+		remaining = MAX;
+		guessed = new ArrayList<>();	 	
 	}
 
 	
 	public String status() {
-		return "hello world";
+		if (remaining == 1) {
+			return "LOST";
+		} else if (display.indexOf("_") == -1) {
+			return "WON";
+		}
 		
-	}
+		String status = null;
+		
+		for (int i = 0; i < MAX; i++) {
+		      if (i < remaining){
+		        status = status + "*";
+		      }else{
+		        status = status + " ";
+		      }
+		    }
+		status = status + "|";
+		
+		return display + status;
+ 	}
 	
 	public void guess(char letter) {
 		

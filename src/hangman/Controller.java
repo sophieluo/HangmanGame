@@ -18,14 +18,16 @@ public class Controller {
 		 
 		 ArrayList<String> lines = hangman.loadWords();	 
 		 
-		 System.out.println(lines);
+		 hangman.randomWord(lines);
+		 
+		 hangman.status();
 		 	 
 		 //scanner to take user input
 		 Scanner s = new Scanner(System.in);
 		 
 		 while (true){
 			 //choose a random word from word.txt
-			 hangman.randomWord();
+			 hangman.randomWord(lines);
 			 
 			 while(true){
 				 //check if game is over
