@@ -10,6 +10,12 @@ public class TraditionalHangman extends Hangman {
 		this.filename = filename;
 	} 
 	
+	
+	private ArrayList<Character> guessed;
+	
+	private int remaining;
+	
+	
 	/**
 	 * 
 	 * @param lines
@@ -35,15 +41,10 @@ public class TraditionalHangman extends Hangman {
 
 	}
 
-	private ArrayList<Character> guessed;
-	
-	private int remaining;
-
 	/**
 	 * prints the game board
 	 * @return a string that's a visual presentation of the game board
 	 */
-	
 	public String status() {
 		
 		String status = "remaining lives: ";
@@ -81,6 +82,15 @@ public class TraditionalHangman extends Hangman {
 		    }else{
 		      remaining--;
 		    }
+		}
+	
+	/**
+	 * checks if game is over
+	 * @return a boolean. true -> game over; false -> continue play
+	 */
+	public boolean isOver() {
+		return remaining == 0;
 	}
+
 		
 }

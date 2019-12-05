@@ -121,39 +121,5 @@ public abstract class Hangman {
 			}
 			return lines;		
 	}
-	
-	/**
-	 * 
-	 * @param lines
-	 * @return a string currentWord, a word chosen randomly from lines list
-	 */
-	//I think this can be reused
-	public String randomWord(ArrayList<String> lines){
-		Random rd = new Random();
-		
-		int i = rd.nextInt(lines.size());
-		
-		currentWord = lines.get(i);
-		display = new ArrayList<Character>();
-		
-		for (int j = 0; j < currentWord.length(); j++) {
-			display.add('_');
-		}
-		
-		remaining = MAX;
-		guessed = new ArrayList<Character>();
-		
-		return currentWord;
-
-	}
-	
-	/**
-	 * checks if game is over
-	 * @return a boolean. true -> game over; false -> continue play
-	 */
-	public boolean isOver() {
-		return remaining == 0;
-	}
-
 
 }
