@@ -90,7 +90,7 @@ public class Controller {
 			String currentWord = evilhangman.randomWord(lines);
 			
 			//finds words with same length
-			System.out.println(evilhangman.findSameLength(lines, currentWord));
+			ArrayList sameLengthWords = evilhangman.findSameLength(lines, currentWord);
 			
 			 while(true){
 				 

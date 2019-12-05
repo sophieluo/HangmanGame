@@ -50,13 +50,19 @@ public class EvilHangman extends Hangman {
 	 */
 	public ArrayList<String> findSameLength(ArrayList<String> lines, String currentWord){
 		ArrayList<String> sameLengthWords = new ArrayList<String>();
+		
 		int length = currentWord.length();
 		
+		System.out.println(lines.size());
 		for (int i = 0; i < lines.size(); i++) {
 			if (lines.get(i).length() == length) {
+				//adds the word into sameLengthWords list
 				sameLengthWords.add(lines.get(i));
+				//removes it from lines list
+				lines.remove(i);
 			}
-		}			
+		}
+		System.out.println(lines.size());
 		return sameLengthWords;
 	}
 	
