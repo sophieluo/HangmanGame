@@ -6,34 +6,36 @@ import java.util.Scanner;
 
 /**
  * launches the game and takes user input
- * @author Sophie_Luo
+ * @author xiexiao@wharton.upenn.edu
  *
  */
 public class Controller {
 
 	public static void main(String[] args) {
 		//initializes new game
-		 Hangman hangman = new Hangman("words_clean.txt");
+		 TraditionalHangman hangman = new TraditionalHangman("words.txt");
 		 
 		 ArrayList<String> lines = hangman.loadWords();
+		 System.out.println(lines);
 		 
 		 //scanner to take user input
 		 Scanner sc = new Scanner(System.in);
 		 	 
-			 //choose a random word from word.txt
-			 hangman.randomWord(lines);
+		 //choose a random word from word.txt
+		 hangman.randomWord(lines);
 			 
-			 while(true){
-				 //check if game is over
-				 if (hangman.isOver()){
-					 System.out.println(hangman.status());
-					 break;
-				//if game is not over
-				 } else {
+		 while(true){
+			 
+			 //check if game is over
+			 if (hangman.isOver()){
+				 System.out.println(hangman.status());
+				 break;
+				 //if game is not over
+			 } else {
 					 System.out.println(hangman.status());
 					 
 					 //prompts user to enter a letter
-					 System.out.println("Please enter a letter");
+					 System.out.println("Guess a letter");
 					 
 					 //reads the nextLine in user input and change it to lower case
 					 String str = sc.nextLine().toLowerCase();
@@ -48,8 +50,6 @@ public class Controller {
 					  * return true if it's a letter
 					  */
 					 isLetter = character >= 'A' && character <= 'z';
-					 
-					 System.out.println(isLetter);
 					 
 					 //checks if user input is empty
 					 if (str.length() == 0){
@@ -70,8 +70,7 @@ public class Controller {
 		            System.out.println("Please enter a letter. You entered something that's not a letter.");
 		          }
 		        }
-		      }
-
+		      }	
 	}
 
 }

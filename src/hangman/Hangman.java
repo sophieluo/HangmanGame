@@ -5,32 +5,38 @@ import java.util.Random;
 import java.util.ArrayList;
 
 
-public class Hangman {
-	
+public abstract class Hangman {
+		
 	/**
 	 * Name of file to open and read.
 	 */
-	private String filename;
+	public String filename;
 	
 	/**
 	 * total turns the user has
 	 */
-	private static final int MAX = 10;
+	public static final int MAX = 10;
 	
 	/**
 	 * a random word chosen by computer each time
 	 */
-	private String currentWord;
+	public String currentWord;
 	
-	private ArrayList<Character> display;
+	/**
+	 * displays the game board
+	 */
+	public ArrayList<Character> display;
 	
+	/**
+	 * arraylist of characters user already guessed (so don't penalize them for entering the wrong character twice
+	 */
 	private ArrayList<Character> guessed;
 	
+	/**
+	 * number of guesses remaining
+	 */
 	private int remaining;
 	
-	public Hangman(String filename) {
-		this.filename = filename;
-	}
 	
 	/**
 	 * opens and reads the data in fileName,
@@ -50,12 +56,58 @@ public class Hangman {
 			String line = file.readLine();
 			
 			while(line != null) {
+				
+				//first strip whitespaces before and after
+				line = line.strip();
+//				System.out.println(line);
+				
 				if(!line.isEmpty()) {
-					lines.add(line);
+					
+					//if starts with uppercase letters
+					if(Character.isUpperCase(line.charAt(0))) {
+						//skips to the next line
+						line = file.readLine();
+					}
+					//if ends with .
+					else if(line.charAt(line.length()-1) == '.') {
+						line = file.readLine();
+					}
+					//if contains '
+					else if(line.indexOf('\'') >= 0){
+						line = file.readLine();
+					}
+					//if contains -
+					else if(line.indexOf('-') >= 0) {
+						line = file.readLine();
+					}
+					//if contains whitespace
+					else if(line.indexOf(' ') >= 0) {
+						line = file.readLine();
+					}
+					//if contains number
+					//should have used regex
+					else if(line.indexOf('0') >= 0
+							|| line.indexOf('1') >= 0
+							|| line.indexOf('2') >= 0
+							|| line.indexOf('3') >= 0
+							|| line.indexOf('4') >= 0
+							|| line.indexOf('5') >= 0
+							|| line.indexOf('6') >= 0
+							|| line.indexOf('7') >= 0
+							|| line.indexOf('8') >= 0
+							|| line.indexOf('9') >= 0
+							
+							) {
+						line = file.readLine();
+					}
+					else {
+						lines.add(line);
+					}
 				}
 				line = file.readLine();
 				} 
 			}
+			//standard exception handling
 			catch(FileNotFoundException e ) {
 				e.printStackTrace();
 			} catch(IOException e) {
@@ -69,9 +121,14 @@ public class Hangman {
 			}
 			return lines;		
 	}
-
 	
-	public void randomWord(ArrayList<String> lines){
+	/**
+	 * 
+	 * @param lines
+	 * @return a string currentWord, a word chosen randomly from lines list
+	 */
+	//I think this can be reused
+	public String randomWord(ArrayList<String> lines){
 		Random rd = new Random();
 		
 		int i = rd.nextInt(lines.size());
@@ -84,51 +141,19 @@ public class Hangman {
 		}
 		
 		remaining = MAX;
-		guessed = new ArrayList<Character>();	 	
-	}
+		guessed = new ArrayList<Character>();
+		
+		return currentWord;
 
-	
-	public String status() {
-		if (remaining == 1) {
-			return "LOST";
-		} else if (display.indexOf('_') == -1) {
-			return "WON";
-		}
-		
-		String status = "remaining lives: ";
-		
-		for (int i = 0; i < MAX; i++) {
-		      if (i < remaining){
-		        status = status + "*";
-		      }else{
-		        status = status + " ";
-		      }
-		    }
-		
-		return display + status;
- 	}
-	
-	public void guess(char letter) {
-		if (guessed.contains(letter)) {
-		      return;
-		    }
-		    guessed.add(letter);
-		    if (currentWord.indexOf(letter) != -1){
-		      for (int i = 0; i < display.size(); i++) {
-		        if (letter == currentWord.charAt(i)){
-		          display.set(i,letter);
-		        }
-		      }
-		    }else{
-		      remaining--;
-		    }
 	}
 	
-	
+	/**
+	 * checks if game is over
+	 * @return a boolean. true -> game over; false -> continue play
+	 */
 	public boolean isOver() {
 		return remaining == 0;
 	}
-		
+
 
 }
-
